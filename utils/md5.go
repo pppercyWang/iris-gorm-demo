@@ -1,4 +1,9 @@
-
+/*
+@Time : 2019/5/8 16:20 
+@Author : Lukebryan
+@File : md5.go
+@Software: GoLand
+*/
 package utils
 
 import (

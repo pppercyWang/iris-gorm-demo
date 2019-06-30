@@ -21,7 +21,6 @@ func main() {
 func newApp() *iris.Application {
 	app := iris.New()
 	app.Configure(iris.WithOptimizations)
-	//配置允许跨域请求
 	crs := cors.New(cors.Options{
 		AllowedOrigins:   []string{"*"}, // allows everything, use that to change the hosts.
 		AllowCredentials: true,

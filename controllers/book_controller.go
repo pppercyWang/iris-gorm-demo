@@ -1,34 +1,45 @@
 package controllers
 
 import (
+	"../models"
+	"../service"
 	"github.com/kataras/iris"
-	"../api"
+	"github.com/spf13/cast"
 )
-//接口的入口
+
 type BookController struct {
 	Ctx     iris.Context
-	Book    api.Book
+	Service service.BookService
 }
 func NewBookController() *BookController {
-	return &BookController{}
+	return &BookController{Service:service.NewBookService()}
 }
-//post :api/v1/book/save
-func (g *BookController) PostSave()  {
-	g.Book.Save(g.Ctx.ResponseWriter(),g.Ctx.Request())
+func (g *BookController) PostList()(result models.Result)  {
+	r := g.Ctx.Request()
+	m:=make(map[string]interface{})
+	m["page"] = r.PostFormValue("page")
+	m["size"] = r.PostFormValue("size")
+	return g.Service.List(m)
 }
-//post :api/v1/book/create
-func (g *BookController) PostCreate()  {
-	g.Book.Create(g.Ctx.ResponseWriter(),g.Ctx.Request())
+func (g *BookController) PostSave()(result models.Result)  {
+	r := g.Ctx.Request()
+	book := models.Book{}
+	book.ID = cast.ToUint(r.PostFormValue("id"))
+	book.Name = r.PostFormValue("name")
+	book.Count =  r.PostFormValue("count")
+	book.Author = r.PostFormValue("author")
+	book.Type = r.PostFormValue("type")
+	return g.Service.Save(book)
 }
-//post :api/v1/book/del
-func (g *BookController) PostDel()  {
-	g.Book.Del(g.Ctx.ResponseWriter(),g.Ctx.Request())
+func (g *BookController) PostGet()(result models.Result)  {
+	r := g.Ctx.Request()
+	id := cast.ToUint(r.PostFormValue("id"))
+	return g.Service.Get(id)
 }
-//post :api/v1/book/get
-func (g *BookController) PostGet()  {
-	g.Book.Get(g.Ctx.ResponseWriter(),g.Ctx.Request())
-}
-//post :api/v1/book/list
-func (g *BookController) PostList()  {
-	g.Book.GetList(g.Ctx.ResponseWriter(),g.Ctx.Request())
+func (g *BookController) PostDel()(result models.Result)  {
+	r := g.Ctx.Request()
+	id := cast.ToUint(r.PostFormValue("id"))
+	book:=models.Book{}
+	book.ID = id
+	return g.Service.Del(book)
 }
