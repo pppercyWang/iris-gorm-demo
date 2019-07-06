@@ -1,5 +1,5 @@
-# lib-api
-与lib-ui对应的服务端代码，iris+gorm增删改查服务
+# iris-gorm-demo
+与lib-ui对应的服务端代码，使用iris+gorm+mysql搭建的一个restful项目模板
 ### conf  配置文件
 ### controllers  控制器 接受参数 api的入口
 ### datasource 数据库配置
