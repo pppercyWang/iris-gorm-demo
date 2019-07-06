@@ -17,8 +17,20 @@ func NewBookController() *BookController {
 func (g *BookController) PostList()(result models.Result)  {
 	r := g.Ctx.Request()
 	m:=make(map[string]interface{})
-	m["page"] = r.PostFormValue("page")
-	m["size"] = r.PostFormValue("size")
+	page := r.PostFormValue("page")
+	size := r.PostFormValue("size")
+	if page == "" {
+		result.Msg = "page不能为空"
+		result.Code = -1
+		return
+	}
+	if size == "" {
+		result.Code = -1
+		result.Msg = "size不能为空"
+		return
+	}
+	m["page"] = page
+	m["size"] = size
 	return g.Service.List(m)
 }
 func (g *BookController) PostSave()(result models.Result)  {
