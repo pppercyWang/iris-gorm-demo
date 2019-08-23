@@ -10,3 +10,10 @@
 ### utils  工具类
 ### config.json 配置文件的映射
 ### main.go 主程序入口
+
+### 启动项目
+```
+// 安装依赖
+go run main.go
+```
+导包时使用相对路径需要将项目放在你配置的GOPATH目录下 import ( "iris-gorm-demo/controllers" )
