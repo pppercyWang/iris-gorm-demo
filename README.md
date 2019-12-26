@@ -24,9 +24,9 @@ main.go 主程序入口
 1.安装依赖 go get
 2.go run main.go
 ```
-使用go get直接下载依赖，或在github手动下载包放到gopath/src/github.com/
-导包时使用相对路径需要将项目放在你配置的GOPATH目录下
-这里我没有使用go module来管理依赖，是因为下载包很容易被墙。你可以使用go mod init用go mod来管理 
+1. 使用go get直接下载依赖，或在github手动下载包放到gopath/src/github.com/
+2. 导包时使用相对路径需要将项目放在你配置的GOPATH目录下
+3. 这里我没有使用go module来管理依赖，是因为下载包很容易被墙。你可以使用go mod init用go mod来管理 
 
 #### 前端
 https://github.com/pppercyWang/lib-ui
