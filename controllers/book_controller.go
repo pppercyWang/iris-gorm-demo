@@ -3,6 +3,7 @@ package controllers
 import (
 	"../models"
 	"../service"
+	"log"
 	"github.com/kataras/iris"
 	"github.com/spf13/cast"
 )
@@ -15,43 +16,75 @@ func NewBookController() *BookController {
 	return &BookController{Service:service.NewBookService()}
 }
 func (g *BookController) PostList()(result models.Result)  {
-	r := g.Ctx.Request()
-	m:=make(map[string]interface{})
-	page := r.PostFormValue("page")
-	size := r.PostFormValue("size")
-	if page == "" {
-		result.Msg = "page不能为空"
+	var m map[string]interface{}
+	err := g.Ctx.ReadJSON(&m)
+	if err != nil {
+		log.Println("ReadJSON Error:", err)
+	}
+	if m["page"] == "" || m["page"] == nil {
 		result.Code = -1
+		result.Msg = "参数缺失 page"
 		return
 	}
-	if size == "" {
+	if cast.ToUint(m["page"]) == 0 {
 		result.Code = -1
-		result.Msg = "size不能为空"
+		result.Msg = "参数错误 page"
 		return
 	}
-	m["page"] = page
-	m["size"] = size
-	return g.Service.List(m)
+	if m["size"] == "" || m["size"] == nil {
+		result.Code = -1
+		result.Msg = "参数缺失 size"
+		return
+	}
+	if cast.ToUint(m["size"]) == 0 {
+		result.Code = -1
+		result.Msg = "参数错误 size"
+		return
+	}
+	return g.Service.GetBookList(m)
 }
 func (g *BookController) PostSave()(result models.Result)  {
-	r := g.Ctx.Request()
-	book := models.Book{}
-	book.ID = cast.ToUint(r.PostFormValue("id"))
-	book.Name = r.PostFormValue("name")
-	book.Count =  r.PostFormValue("count")
-	book.Author = r.PostFormValue("author")
-	book.Type = r.PostFormValue("type")
-	return g.Service.Save(book)
+	var book models.Book
+	if err := g.Ctx.ReadJSON(&book); err != nil {  
+		log.Println(err)
+		result.Msg = "数据错误"
+		return
+	}
+	return g.Service.SaveBook(book)
 }
 func (g *BookController) PostGet()(result models.Result)  {
-	r := g.Ctx.Request()
-	id := cast.ToUint(r.PostFormValue("id"))
-	return g.Service.Get(id)
+	var m map[string]interface{}
+	err := g.Ctx.ReadJSON(&m)
+	if err != nil {
+		log.Println("ReadJSON Error:", err)
+	}
+	if m["id"] == "" || m["id"] == nil {
+		result.Code = -1
+		result.Msg = "参数缺失 id"
+		return
+	}
+	if cast.ToUint(m["id"]) == 0 {
+		result.Code = -1
+		result.Msg = "参数错误 id"
+		return
+	}
+	return g.Service.GetBook(cast.ToUint(m["id"]))
 }
 func (g *BookController) PostDel()(result models.Result)  {
-	r := g.Ctx.Request()
-	id := cast.ToUint(r.PostFormValue("id"))
-	book:=models.Book{}
-	book.ID = id
-	return g.Service.Del(book)
+	var m map[string]interface{}
+	err := g.Ctx.ReadJSON(&m)
+	if err != nil {
+		log.Println("ReadJSON Error:", err)
+	}
+	if m["id"] == "" || m["id"] == nil {
+		result.Code = -1
+		result.Msg = "参数缺失 id"
+		return
+	}
+	if cast.ToUint(m["id"]) == 0 {
+		result.Code = -1
+		result.Msg = "参数错误 id"
+		return
+	}
+	return g.Service.DelBook(cast.ToUint(m["id"]))
 }

@@ -1,9 +1,4 @@
-/*
-@Time : 2019/5/14 11:26 
-@Author : Lukebryan
-@File : hmacsha256util.go
-@Software: GoLand
-*/
+
 package utils
 
 import (

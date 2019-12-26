@@ -6,10 +6,10 @@ import (
 	"github.com/spf13/cast"
 )
 type BookRepository interface {
-	List(m map[string]interface{})(total int,books []models.Book)
-	Save(book models.Book)(err error)
-	Get(id uint)(book models.Book,err error)
-	Del(book models.Book)(err error)
+	GetBookList(m map[string]interface{})(total int,books []models.Book)
+	SaveBook(book models.Book)(err error)
+	GetBook(id uint)(book models.Book,err error)
+	DelBook(id uint)(err error)
 }
 func NewBookRepository() BookRepository{
 	return &bookRepository{}
@@ -18,7 +18,7 @@ var db = datasource.GetDB()
 
 type bookRepository struct {}
 
-func (n bookRepository) List(m map[string]interface{})(total int,books []models.Book){
+func (n bookRepository) GetBookList(m map[string]interface{})(total int,books []models.Book){
 	db.Table("book").Count(&total)
 	err := db.Limit(cast.ToInt(m["size"])).Offset((cast.ToInt(m["page"])-1)*cast.ToInt(m["size"])).Find(&books).Error
 	if err!=nil {
@@ -26,7 +26,7 @@ func (n bookRepository) List(m map[string]interface{})(total int,books []models.
 	}
 	return
 }
-func (n bookRepository) Save(book models.Book)(err error){
+func (n bookRepository) SaveBook(book models.Book)(err error){
 	if book.ID != 0{
 		err := db.Save(&book).Error
 		return err
@@ -34,14 +34,15 @@ func (n bookRepository) Save(book models.Book)(err error){
 		err := db.Create(&book).Error
 		return err
 	}
-	return nil
 }
-func (n bookRepository) Get(id uint)(book models.Book,err error){
+func (n bookRepository) GetBook(id uint)(book models.Book,err error){
 	err = db.First(&book,id).Error
 	return
 }
-func (n bookRepository) Del(book models.Book)(err error){
-	err = db.Unscoped().Delete(&book).Error
+func (n bookRepository) DelBook(id uint)(err error){
+	var book models.Book
+	book.ID = id
+	err = db.Unscoped().Delete(&book).Error  //如果直接Delete是软删除
 	return
 }
 

@@ -5,12 +5,15 @@ import (
 	"github.com/kataras/iris"
 	"github.com/kataras/iris/mvc"
 	"net/http"
+	"../middleware"
 )
 
 func InitRouter(app *iris.Application) {
 	//app.Use(CrossAccess)
-	bathPath := "/api/v1"
-	mvc.New(app.Party(bathPath+"/book")).Handle(controllers.NewBookController())
+	bathUrl := "/api"
+	mvc.New(app.Party(bathUrl + "/user")).Handle(controllers.NewUserController())
+	app.Use(middleware.GetJWT().Serve)  // jwt
+	mvc.New(app.Party(bathUrl +"/book")).Handle(controllers.NewBookController())
 }
 
 func CrossAccess11(next http.Handler) http.Handler {
