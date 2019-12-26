@@ -1,0 +1,271 @@
+{
+	"info": {
+		"_postman_id": "7fb206d4-8547-4162-ab3a-2a369326d496",
+		"name": "iris-gorm-demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "登录",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjUxNzgyOTksImlhdCI6MTU2NTE0MjI5OSwiaWQiOjEsImlzcyI6IklyaXMiLCJqdGkiOiI5NTI3Iiwibmlja19uYW1lIjoicGVyY3kiLCJzZXNzaW9uIjoiIn0.HYHfYpX78GqqqwHV0PSNzJKDIyESoh-Hlvime7JigC0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"test\",\n\t\"password\":\"123456\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8848/api/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8848",
+					"path": [
+						"api",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "注册",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"username\":\"test\",\n\t\"password\":\"123456\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8848/api/user/save",
+					"host": [
+						"localhost"
+					],
+					"port": "8848",
+					"path": [
+						"api",
+						"user",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "list",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzczNjM3MzEsImlhdCI6MTU3NzMyNzczMSwiaWQiOjEsImlzcyI6IklyaXMiLCJqdGkiOiI5NTI3Iiwibmlja19uYW1lIjoicGVyY3kiLCJzZXNzaW9uIjoiIn0.TjfHEIEMvYqWXWWOWU0ZELl5rJV_d0d0sGgY8Gf8g2U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"page\":\"1\",\n\t\"size\":\"10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8848/api/book/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8848",
+					"path": [
+						"api",
+						"book",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzczNjM3MzEsImlhdCI6MTU3NzMyNzczMSwiaWQiOjEsImlzcyI6IklyaXMiLCJqdGkiOiI5NTI3Iiwibmlja19uYW1lIjoicGVyY3kiLCJzZXNzaW9uIjoiIn0.TjfHEIEMvYqWXWWOWU0ZELl5rJV_d0d0sGgY8Gf8g2U",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\n\t\"name\": \"三国演义\",\n\t\"count\": \"19\",\n\t\"author\": \"罗贯中\",\n\t\"type\":\"历史\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8848/api/book/save",
+					"host": [
+						"localhost"
+					],
+					"port": "8848",
+					"path": [
+						"api",
+						"book",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "del",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzczNjQzNDksImlhdCI6MTU3NzMyODM0OSwiaWQiOjEsImlzcyI6IklyaXMiLCJqdGkiOiI5NTI3Iiwibmlja19uYW1lIjoidGVzdCIsInNlc3Npb24iOiIifQ.lDx-VATbskR27OIe2N2u_4nMbqC8tOXuOulZTmPPHxM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":7\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8848/api/book/del",
+					"host": [
+						"localhost"
+					],
+					"port": "8848",
+					"path": [
+						"api",
+						"book",
+						"del"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzczNjQzNDksImlhdCI6MTU3NzMyODM0OSwiaWQiOjEsImlzcyI6IklyaXMiLCJqdGkiOiI5NTI3Iiwibmlja19uYW1lIjoidGVzdCIsInNlc3Npb24iOiIifQ.lDx-VATbskR27OIe2N2u_4nMbqC8tOXuOulZTmPPHxM",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"2\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8848/api/book/get",
+					"host": [
+						"localhost"
+					],
+					"port": "8848",
+					"path": [
+						"api",
+						"book",
+						"get"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
